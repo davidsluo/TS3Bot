@@ -1,18 +1,20 @@
 import com.github.theholywaffle.teamspeak3.TS3Api;
 import com.github.theholywaffle.teamspeak3.TS3Config;
 import com.github.theholywaffle.teamspeak3.TS3Query;
+import com.github.theholywaffle.teamspeak3.api.event.*;
 import com.github.theholywaffle.teamspeak3.api.wrapper.Channel;
 import com.github.theholywaffle.teamspeak3.api.wrapper.Client;
 import config.Config;
 
 import java.util.ArrayList;
+import java.util.Arrays;
 import java.util.List;
 import java.util.logging.Level;
 
 /**
  * Created by David on 9/7/2016.
  */
-public class TS3Bot {
+public class TS3Bot implements TS3Listener {
 
     public static final String CONFIG_FILEPATH = "config/config.properties";
 
@@ -43,14 +45,24 @@ public class TS3Bot {
         AFK_CHANNEL_ID = getAFKChannelID();
     }
 
+    private int getAFKChannelID() throws Error {
+        final List<Channel> channels = api.getChannelsByName(config.getAfkChannelName());
+
+        if (channels.size() > 1) {
+            throw new Error("AFK Channel name not unique!");
+        } else {
+            return channels.get(0).getId();
+        }
+    }
+
     /**
      * Moves all AFK clients to AFK channel.
      *
      * @return The clients that were moved.
      */
     public List<Client> purgeAFK() {
-        final List<Client>  clients    = api.getClients();
-        List<Client>        afkClients = new ArrayList<>();
+        final List<Client> clients    = api.getClients();
+        List<Client>       afkClients = new ArrayList<>();
 
         for (Client client : clients) {
             if (client.getIdleTime() > config.getAfkTime() && client.getChannelId() != AFK_CHANNEL_ID) {
@@ -63,16 +75,6 @@ public class TS3Bot {
         return afkClients;
     }
 
-    private int getAFKChannelID() throws Error {
-        final List<Channel> channels = api.getChannelsByName(config.getAfkChannelName());
-
-        if (channels.size() > 1) {
-            throw new Error("AFK Channel name not unique!");
-        } else {
-            return channels.get(0).getId();
-        }
-    }
-
     public void shutdown() {
         query.exit();
     }
@@ -82,6 +84,80 @@ public class TS3Bot {
 
         bot.purgeAFK();
 
-        bot.shutdown();
+//        bot.shutdown();
+    }
+
+    @Override
+    public void onTextMessage(TextMessageEvent e) {
+        String message = e.getMessage();
+        if (message.charAt(0) == config.getCommandOperator()) {
+            String[] splitMsg = message.split("\\s+");
+            String   command  = splitMsg[0].substring(1);
+            String[] args     = Arrays.copyOfRange(splitMsg, 1, splitMsg.length);
+
+            switch (command) {
+                case "help":
+                    // TODO: 9/9/2016 send help message (maybe have help message auto-compiled)
+                    break;
+                default:
+                    // TODO: 9/9/2016 state invalid command
+                    break;
+            }
+        }
+    }
+
+    @Override
+    public void onClientJoin(ClientJoinEvent e) {
+
+    }
+
+    @Override
+    public void onClientLeave(ClientLeaveEvent e) {
+
+    }
+
+    @Override
+    public void onServerEdit(ServerEditedEvent e) {
+
+    }
+
+    @Override
+    public void onChannelEdit(ChannelEditedEvent e) {
+
+    }
+
+    @Override
+    public void onChannelDescriptionChanged(ChannelDescriptionEditedEvent e) {
+
+    }
+
+    @Override
+    public void onClientMoved(ClientMovedEvent clientMovedEvent) {
+
+    }
+
+    @Override
+    public void onChannelCreate(ChannelCreateEvent channelCreateEvent) {
+
+    }
+
+    @Override
+    public void onChannelDeleted(ChannelDeletedEvent channelDeletedEvent) {
+
+    }
+
+    @Override
+    public void onChannelMoved(ChannelMovedEvent channelMovedEvent) {
+
+    }
+
+    @Override
+    public void onChannelPasswordChanged(ChannelPasswordChangedEvent channelPasswordChangedEvent) {
+
+    }
+
+    @Override
+    public void onPrivilegeKeyUsed(PrivilegeKeyUsedEvent privilegeKeyUsedEvent) {
+
     }
 }
