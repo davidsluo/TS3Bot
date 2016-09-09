@@ -17,6 +17,8 @@ public class Config {
     private int    virtServId     = -1;
     private String botName        = "";
     private String afkChannelName = "";
+    private String afkMessage     = "";
+    private long   afkTime        = -1;
 
     private final String CONFIG_FILENAME;
 
@@ -53,13 +55,15 @@ public class Config {
                 throw new FileNotFoundException("Config file does not exist.");
             }
 
-            hostname = props.getProperty("HOSTNAME");
-            queryPort = Integer.valueOf(props.getProperty("QUERY_PORT"));
-            queryUsername = props.getProperty("QUERY_USERNAME");
-            queryPassword = props.getProperty("QUERY_PASSWORD");
-            virtServId = Integer.valueOf(props.getProperty("VIRT_SERV_ID"));
-            botName = props.getProperty("BOT_NAME");
+            hostname       = props.getProperty("HOSTNAME");
+            queryPort      = Integer.valueOf(props.getProperty("QUERY_PORT"));
+            queryUsername  = props.getProperty("QUERY_USERNAME");
+            queryPassword  = props.getProperty("QUERY_PASSWORD");
+            virtServId     = Integer.valueOf(props.getProperty("VIRT_SERV_ID"));
+            botName        = props.getProperty("BOT_NAME");
             afkChannelName = props.getProperty("AFK_CHANNEL_NAME");
+            afkMessage     = props.getProperty("AFK_MESSAGE");
+            afkTime        = Long.valueOf(props.getProperty("AFK_TIME"));
 
         } catch (Exception e) {
             System.out.println("Exception: " + e);
@@ -101,5 +105,13 @@ public class Config {
 
     public String getAfkChannelName() {
         return afkChannelName;
+    }
+
+    public String getAfkMessage() {
+        return afkMessage;
+    }
+
+    public long getAfkTime() {
+        return afkTime;
     }
 }

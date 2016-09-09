@@ -16,9 +16,6 @@ public class TS3Bot {
 
     public static final String CONFIG_FILENAME = "config.properties";
 
-    // TODO: 9/9/2016 add this to the config file
-    public static final String AFK_MESSAGE = "You were moved to the AFK channel after being away for 30 minutes";
-
     final int      AFK_CHANNEL_ID;
     final TS3Query query;
     final TS3Api   api;
@@ -50,10 +47,9 @@ public class TS3Bot {
         List<Client>        afkClients = new ArrayList<>();
 
         for (Client client : clients) {
-            if (client.getIdleTime() > 1_800_000 && client.getChannelId() != AFK_CHANNEL_ID) {
+            if (client.getIdleTime() > config.getAfkTime() && client.getChannelId() != AFK_CHANNEL_ID) {
                 afkClients.add(client);
-                // TODO: 9/9/2016 make this load afk message from config
-                api.sendPrivateMessage(client.getId(), AFK_MESSAGE);
+                api.sendPrivateMessage(client.getId(), config.getAfkMessage());
                 api.moveClient(client.getId(), AFK_CHANNEL_ID);
             }
         }
