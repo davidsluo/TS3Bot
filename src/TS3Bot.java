@@ -14,7 +14,7 @@ import java.util.logging.Level;
  */
 public class TS3Bot {
 
-    public static final String CONFIG_FILENAME = "config.properties";
+    public static final String CONFIG_FILEPATH = "config/config.properties";
 
     final int      AFK_CHANNEL_ID;
     final TS3Query query;
@@ -24,7 +24,7 @@ public class TS3Bot {
 
     public TS3Bot() {
 
-        config = new Config(CONFIG_FILENAME);
+        config = new Config(CONFIG_FILEPATH);
 
         final TS3Config SERVER_CONFIG = new TS3Config();
         SERVER_CONFIG.setHost(config.getHostname());
@@ -34,6 +34,7 @@ public class TS3Bot {
         this.query = new TS3Query(SERVER_CONFIG);
         query.connect();
 
+        // TODO: 9/9/2016 make this asynchronous?
         this.api = query.getApi();
         api.login(config.getQueryUsername(), config.getQueryPassword());
         api.selectVirtualServerById(config.getVirtServId());
@@ -42,6 +43,11 @@ public class TS3Bot {
         AFK_CHANNEL_ID = getAFKChannelID();
     }
 
+    /**
+     * Moves all AFK clients to AFK channel.
+     *
+     * @return The clients that were moved.
+     */
     public List<Client> purgeAFK() {
         final List<Client>  clients    = api.getClients();
         List<Client>        afkClients = new ArrayList<>();
@@ -67,9 +73,15 @@ public class TS3Bot {
         }
     }
 
+    public void shutdown() {
+        query.exit();
+    }
+
     public static void main(String[] args) {
         TS3Bot bot = new TS3Bot();
 
         bot.purgeAFK();
+
+        bot.shutdown();
     }
 }

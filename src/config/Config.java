@@ -20,12 +20,12 @@ public class Config {
     private String afkMessage     = "";
     private long   afkTime        = -1;
 
-    private final String CONFIG_FILENAME;
+    private final String CONFIG_FILEPATH;
 
     InputStream inputStream;
 
     public Config(String filename) {
-        CONFIG_FILENAME = filename;
+        CONFIG_FILEPATH = filename;
 
         try {
             loadConfig();
@@ -47,7 +47,7 @@ public class Config {
         try {
             Properties props = new Properties();
 
-            inputStream = getClass().getClassLoader().getResourceAsStream(CONFIG_FILENAME);
+            inputStream = getClass().getClassLoader().getResourceAsStream(CONFIG_FILEPATH);
 
             if (inputStream != null) {
                 props.load(inputStream);
