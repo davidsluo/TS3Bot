@@ -16,6 +16,9 @@ public class TS3Bot {
 
     public static final String CONFIG_FILENAME = "config.properties";
 
+    // TODO: 9/9/2016 add this to the config file
+    public static final String AFK_MESSAGE = "You were moved to the AFK channel after being away for 30 minutes";
+
     final int      AFK_CHANNEL_ID;
     final TS3Query query;
     final TS3Api   api;
@@ -44,13 +47,13 @@ public class TS3Bot {
 
     public List<Client> purgeAFK() {
         final List<Client>  clients    = api.getClients();
-        final List<Channel> channels   = api.getChannels();
         List<Client>        afkClients = new ArrayList<>();
 
         for (Client client : clients) {
             if (client.getIdleTime() > 1_800_000 && client.getChannelId() != AFK_CHANNEL_ID) {
-//                System.out.println(client.getNickname() + "\t" + client.getIdleTime());
                 afkClients.add(client);
+                // TODO: 9/9/2016 make this load afk message from config
+                api.sendPrivateMessage(client.getId(), AFK_MESSAGE);
                 api.moveClient(client.getId(), AFK_CHANNEL_ID);
             }
         }
@@ -58,6 +61,7 @@ public class TS3Bot {
         return afkClients;
     }
 
+    // TODO: 9/9/2016 make this throw exception on un-unique channel name or make it use afk channel ID by default
     private int getAFKChannelID() {
         final List<Channel> channels = api.getChannelsByName(config.getAfkChannelName());
 
@@ -66,10 +70,6 @@ public class TS3Bot {
         } else {
             return channels.get(0).getId();
         }
-    }
-
-    public static long convertTimeToMillis(int hours, int minutes, int seconds, int milliseconds) {
-        return hours * 3600000 + minutes * 60000 + seconds * 1000 + milliseconds;
     }
 
     public static void main(String[] args) {
