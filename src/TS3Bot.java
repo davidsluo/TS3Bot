@@ -1,3 +1,4 @@
+import chat.Command;
 import com.github.theholywaffle.teamspeak3.TS3Api;
 import com.github.theholywaffle.teamspeak3.TS3Config;
 import com.github.theholywaffle.teamspeak3.TS3Query;
@@ -95,69 +96,91 @@ public class TS3Bot implements TS3Listener {
             String   command  = splitMsg[0].substring(1);
             String[] args     = Arrays.copyOfRange(splitMsg, 1, splitMsg.length);
 
+            // TODO: 9/9/2016 add logging of commands
             switch (command) {
                 case "help":
                     // TODO: 9/9/2016 send help message (maybe have help message auto-compiled)
+                    break;
+                case "youtube":
+                case "yt":
+                    // TODO: 9/9/2016 search youtube, get links to top 3 videos
+                    // list top few results if not unique. can request additional pages whispered to them.
+                    break;
+                case "google":
+                case "goog":
+                case "g":
+                    // TODO: 9/9/2016 search google, get top 3 results
+                    // list top few results if not unique. can request additional pages whispered to them.
+                    break;
+                case "guildlookup":
+                case "glookup":
+                    // TODO: 9/9/2016 get link to requested guild if only one result.
+                    // list top few results if not unique. can request additional pages whispered to them.
+                    break;
+                case "playerlookup":
+                case "plookup":
+                    // TODO: 9/9/2016 get link to requested player's profile
+                    // list top few results if not unique. can request additional pages whispered to them.
+                    break;
+                case "raid":
+                    // TODO: 9/9/2016 move predefined clients to predefined channel
+                    // implement group system?
+                    // use teamspeak groups?
                     break;
                 default:
                     // TODO: 9/9/2016 state invalid command
                     break;
             }
+        } else if (message.substring(0,2).equals("/r/") ||
+                message.substring(0,1).equals("r/")) {
+            // TODO: 9/9/2016 add linking to subreddits
+        } else if (message.substring(0,2).equals("/u/") ||
+                message.substring(0,1).equals("u/")) {
+            // TODO: 9/9/2016 add linking to reddit users
         }
     }
 
     @Override
     public void onClientJoin(ClientJoinEvent e) {
-
     }
 
     @Override
     public void onClientLeave(ClientLeaveEvent e) {
-
     }
 
     @Override
     public void onServerEdit(ServerEditedEvent e) {
-
     }
 
     @Override
     public void onChannelEdit(ChannelEditedEvent e) {
-
     }
 
     @Override
     public void onChannelDescriptionChanged(ChannelDescriptionEditedEvent e) {
-
     }
 
     @Override
     public void onClientMoved(ClientMovedEvent clientMovedEvent) {
-
     }
 
     @Override
     public void onChannelCreate(ChannelCreateEvent channelCreateEvent) {
-
     }
 
     @Override
     public void onChannelDeleted(ChannelDeletedEvent channelDeletedEvent) {
-
     }
 
     @Override
     public void onChannelMoved(ChannelMovedEvent channelMovedEvent) {
-
     }
 
     @Override
     public void onChannelPasswordChanged(ChannelPasswordChangedEvent channelPasswordChangedEvent) {
-
     }
 
     @Override
     public void onPrivilegeKeyUsed(PrivilegeKeyUsedEvent privilegeKeyUsedEvent) {
-
     }
 }
