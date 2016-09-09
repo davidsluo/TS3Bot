@@ -29,8 +29,6 @@ public class Config {
 
         try {
             loadConfig();
-        } catch (FileNotFoundException e) {
-            createConfig();
         } catch (Exception e) {
             e.printStackTrace();
         }
@@ -39,7 +37,6 @@ public class Config {
     /**
      * Config file loader, mostly from Crunchify's <a href="http://crunchify.com/java-properties-file-how-to-read-config-properties-values-in-java/">article on config files.</a>
      *
-     * @return A HashMap of the config values.
      * @throws IOException Thrown if the config file does not exist.
      */
     public void loadConfig() throws IOException {
@@ -73,11 +70,6 @@ public class Config {
             }
         }
     }
-
-    public void createConfig() {
-//        TODO: make this method
-    }
-
 
     public String getHostname() {
         return hostname;
