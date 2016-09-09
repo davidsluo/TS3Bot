@@ -61,12 +61,11 @@ public class TS3Bot {
         return afkClients;
     }
 
-    // TODO: 9/9/2016 make this throw exception on un-unique channel name or make it use afk channel ID by default
-    private int getAFKChannelID() {
+    private int getAFKChannelID() throws Error {
         final List<Channel> channels = api.getChannelsByName(config.getAfkChannelName());
 
         if (channels.size() > 1) {
-            return -1;
+            throw new Error("AFK Channel name not unique!");
         } else {
             return channels.get(0).getId();
         }
