@@ -20,6 +20,7 @@ public class Config {
     private String afkMessage      = "";
     private long   afkTime         = -1;
     private char   commandOperator = '!';
+    private String bingApiKey      = "";
 
     private final String CONFIG_FILEPATH;
     InputStream inputStream;
@@ -62,6 +63,7 @@ public class Config {
             afkMessage       = props.getProperty("AFK_MESSAGE");
             afkTime          = Long.valueOf(props.getProperty("AFK_TIME"));
             commandOperator  = props.getProperty("COMMAND_OPERATOR").charAt(0);
+            bingApiKey       = props.getProperty("BING_API_KEY");
 
         } catch (Exception e) {
             System.out.println("Exception: " + e);
@@ -110,5 +112,9 @@ public class Config {
 
     public char getCommandOperator() {
         return commandOperator;
+    }
+
+    public String getBingApiKey() {
+        return bingApiKey;
     }
 }
