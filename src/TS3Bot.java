@@ -75,12 +75,11 @@ public class TS3Bot {
                         case "bing":
                         case "b":
                         case "search":
-                            // TODO: 9/9/2016 search bing, get top 3 results
-                            // list top few results if not unique. can request additional pages whispered to them.
+                            // TODO: can request additional pages whispered to them.
                             String query = Arrays.stream(args).collect(Collectors.joining(" "));
-                            api.sendTextMessage(e.getTargetMode(), e.getInvokerId(), new Search(config).bing(query).toString());
-
-
+                            api.sendTextMessage(e.getTargetMode(),
+                                    e.getInvokerId(),
+                                    "\n" + new Search(config).bing(query).toString());
                             break;
                         case "guildlookup":
                         case "glookup":

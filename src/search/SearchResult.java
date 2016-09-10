@@ -7,10 +7,12 @@ public class SearchResult {
 
     private final String link;
     private final String text;
+    private final String description;
 
-    public SearchResult (String link, String text) {
+    public SearchResult (String link, String text, String description) {
         this.link = link;
         this.text = text;
+        this.description = description;
     }
 
     public String getLink() {
@@ -19,5 +21,9 @@ public class SearchResult {
 
     public String getText() {
         return text;
+    }
+
+    public String getDescription() {
+        return description;
     }
 }

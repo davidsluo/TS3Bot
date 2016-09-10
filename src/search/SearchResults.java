@@ -13,13 +13,18 @@ public class SearchResults extends ArrayList<SearchResult> {
 
         for (SearchResult result : this) {
             if (result.getText().equals("")) {
-                builder.append("[url]" + result.getLink() + "[/url]");
+                builder.append(String.format("[url]%s[/url] - %s", result.getLink(), result.getDescription()));
             } else {
-                builder.append("[url=" + result.getLink() + "]" + result.getText() + "[/url]");
+                builder.append(String.format("[url=%s]%s[/url] - %s", result.getLink(), result.getText(), result.getDescription()));
             }
             builder.append("\n");
         }
         return builder.toString();
+    }
+
+    public boolean add(String link, String text, String description) {
+        super.add(new SearchResult(link, text, description));
+        return true;
     }
 
 }
