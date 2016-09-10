@@ -1,4 +1,4 @@
-package commands.search;
+package search;
 
 /**
  * Created by David on 9/9/2016.
