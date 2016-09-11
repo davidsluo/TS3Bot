@@ -1,20 +1,21 @@
 package commands;
 
 import Chat.Messenger;
+import com.github.theholywaffle.teamspeak3.api.TextMessageTargetMode;
 import com.github.theholywaffle.teamspeak3.api.event.TextMessageEvent;
 import com.github.theholywaffle.teamspeak3.api.wrapper.Channel;
 import com.github.theholywaffle.teamspeak3.api.wrapper.Client;
+import com.sun.xml.internal.ws.policy.privateutil.PolicyUtils;
 import ts3bot.TS3Bot;
 
-import java.util.ArrayList;
-import java.util.List;
+import java.util.*;
 
 /**
  * Created by David on 9/10/2016.
  */
 public class PurgeAfk extends Command {
 
-    private final int      AFK_CHANNEL_ID;
+    private final int AFK_CHANNEL_ID;
     private static final String[] aliases = {
             "purgeafk",
             "afk"
@@ -23,6 +24,10 @@ public class PurgeAfk extends Command {
     public PurgeAfk(TextMessageEvent e) {
         super(e);
         AFK_CHANNEL_ID = getAFKChannelID();
+    }
+
+    public PurgeAfk() {
+        this(null);
     }
 
     @Override
@@ -34,8 +39,14 @@ public class PurgeAfk extends Command {
     public void execute(String... params) {
         List<Client> afkers = purgeAFK();
 
+        if (e == null) {
+            TS3Bot.messenger.sendServerMessage(
+                    "Moved " + afkers.size() + " AFK client"
+                            + (afkers.size() == 1 ? "." : "s."));
+        } else {
         TS3Bot.messenger.sendMessage(e, "Moved " + afkers.size() + " AFK client"
                 + (afkers.size() == 1 ? "." : "s."));
+        }
     }
 
     /**
@@ -52,6 +63,7 @@ public class PurgeAfk extends Command {
             return channels.get(0).getId();
         }
     }
+
     /**
      * Moves all AFK clients to AFK channel.
      *

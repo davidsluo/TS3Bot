@@ -28,4 +28,11 @@ public class Messenger {
     public void sendMessage(TextMessageEvent e, String message) {
         sendMessage(e.getTargetMode(), e.getInvokerId(), message);
     }
+
+    public void sendServerMessage(String message) {
+        String[] messages = message.split(NEW_MESSAGE_DELIMITER);
+        for (String m : messages) {
+            api.sendServerMessage(m);
+        }
+    }
 }

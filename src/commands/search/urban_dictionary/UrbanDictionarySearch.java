@@ -18,8 +18,8 @@ import java.util.Scanner;
  */
 public class UrbanDictionarySearch extends Search {
 
-    private static final String urlPattern = "http://api.urbandictionary.com/v0/define?term=%s";
-    private static final String[] aliases = {
+    private static final String   urlPattern = "http://api.urbandictionary.com/v0/define?term=%s";
+    private static final String[] aliases    = {
             "urbandictionary",
             "urbandict",
             "ud"
@@ -71,7 +71,8 @@ public class UrbanDictionarySearch extends Search {
                 (results.size() == 1 ? " result " : " results ") +
                 "for [b]" + query + "[/b].\n");
 
-        return results.size() > 0 ? results : null;}
+        return results;
+    }
 
     @Override
     public SearchResults search(String query) {

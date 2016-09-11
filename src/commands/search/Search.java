@@ -35,7 +35,6 @@ public abstract class Search extends Command {
             numResults = 1;
             query = Utils.combineArray(args);
             results = search(numResults, query);
-            results.size();
         }
 
 

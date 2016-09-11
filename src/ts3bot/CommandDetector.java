@@ -4,12 +4,10 @@ import com.github.theholywaffle.teamspeak3.api.event.TS3EventAdapter;
 import com.github.theholywaffle.teamspeak3.api.event.TextMessageEvent;
 import commands.PurgeAfk;
 import commands.RequestBot;
-import commands.search.SearchResults;
 import commands.search.bing.BingSearch;
 import commands.search.urban_dictionary.UrbanDictionarySearch;
 
 import java.util.Arrays;
-import java.util.stream.Collectors;
 
 /**
  * Created by David on 9/10/2016.

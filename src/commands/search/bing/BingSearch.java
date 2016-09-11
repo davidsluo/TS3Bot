@@ -86,7 +86,7 @@ public class BingSearch extends Search {
                 (results.size() == 1 ? " result " : " results ") +
                 "for [b]" + query + "[/b].\n");
 
-        return results.size() > 0 ? results : null;
+        return results;
     }
 
     @Override

@@ -6,6 +6,7 @@ import com.github.theholywaffle.teamspeak3.TS3Config;
 import com.github.theholywaffle.teamspeak3.TS3Query;
 import com.github.theholywaffle.teamspeak3.api.wrapper.Channel;
 import com.github.theholywaffle.teamspeak3.api.wrapper.Client;
+import commands.PurgeAfk;
 import config.Config;
 
 import java.util.ArrayList;
@@ -53,16 +54,41 @@ public class TS3Bot {
 
     }
 
-
-
-
-
     public void shutdown() {
         query.exit();
     }
 
+    public void moveToMostPopulatedChannel() {
+        int mostPopulatedChannelId = api.getChannelByNameExact(config.getAfkChannelName(), true).getId();
+        int mostPopulatedChannelPopulation = 0;
+
+        List<Channel> channels = api.getChannels();
+
+        for  (Channel channel : channels) {
+            if (channel.getTotalClients() > mostPopulatedChannelPopulation) {
+                mostPopulatedChannelId = channel.getId();
+                mostPopulatedChannelPopulation = channel.getTotalClients();
+            }
+        }
+
+        api.moveClient(api.whoAmI().getId(), mostPopulatedChannelId);
+    }
+
     public static void main(String[] args) {
         TS3Bot bot = new TS3Bot();
+
+        new Thread(() -> {
+            while (true) {
+                new PurgeAfk().execute();
+                bot.moveToMostPopulatedChannel();
+
+                try {
+                    Thread.sleep(5 * 60 * 1000);
+                } catch (InterruptedException e) {
+                    e.printStackTrace();
+                }
+            }
+        }).start();
 
 //        while (true) {
 //            bot.purgeAFK();
