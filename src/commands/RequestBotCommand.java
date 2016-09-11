@@ -6,13 +6,13 @@ import ts3bot.TS3Bot;
 /**
  * Created by David on 9/10/2016.
  */
-public class RequestBot extends Command {
+public class RequestBotCommand extends Command {
 
     private static final String[] aliases = {
             "requestbot"
     };
 
-    public RequestBot(TextMessageEvent e) {
+    public RequestBotCommand(TextMessageEvent e) {
         super(e);
     }
 

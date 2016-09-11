@@ -5,11 +5,9 @@ import com.github.theholywaffle.teamspeak3.TS3Api;
 import com.github.theholywaffle.teamspeak3.TS3Config;
 import com.github.theholywaffle.teamspeak3.TS3Query;
 import com.github.theholywaffle.teamspeak3.api.wrapper.Channel;
-import com.github.theholywaffle.teamspeak3.api.wrapper.Client;
-import commands.PurgeAfk;
+import commands.PurgeAfkCommand;
 import config.Config;
 
-import java.util.ArrayList;
 import java.util.List;
 import java.util.logging.Level;
 
@@ -79,7 +77,7 @@ public class TS3Bot {
 
         new Thread(() -> {
             while (true) {
-                new PurgeAfk().execute();
+                new PurgeAfkCommand().execute();
                 bot.moveToMostPopulatedChannel();
 
                 try {

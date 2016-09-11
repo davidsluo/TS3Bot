@@ -9,11 +9,11 @@ import ts3bot.Utils;
 /**
  * Created by David on 9/9/2016.
  */
-public abstract class Search extends Command {
+public abstract class SearchCommand extends Command {
 
     protected static final String CHARSET = "UTF-8";
 
-    public Search(TextMessageEvent e) {
+    public SearchCommand(TextMessageEvent e) {
         super(e);
     }
 

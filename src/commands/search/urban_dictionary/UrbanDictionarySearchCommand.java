@@ -1,10 +1,9 @@
 package commands.search.urban_dictionary;
 
 import com.github.theholywaffle.teamspeak3.api.event.TextMessageEvent;
-import config.Config;
 import org.json.JSONArray;
 import org.json.JSONObject;
-import commands.search.Search;
+import commands.search.SearchCommand;
 import commands.search.SearchResults;
 
 import java.io.InputStream;
@@ -16,7 +15,7 @@ import java.util.Scanner;
 /**
  * Created by David on 9/10/2016.
  */
-public class UrbanDictionarySearch extends Search {
+public class UrbanDictionarySearchCommand extends SearchCommand {
 
     private static final String   urlPattern = "http://api.urbandictionary.com/v0/define?term=%s";
     private static final String[] aliases    = {
@@ -26,7 +25,7 @@ public class UrbanDictionarySearch extends Search {
     };
 
 
-    public UrbanDictionarySearch(TextMessageEvent e) {
+    public UrbanDictionarySearchCommand(TextMessageEvent e) {
         super(e);
     }
 

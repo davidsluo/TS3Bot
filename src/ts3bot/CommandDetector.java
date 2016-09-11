@@ -2,10 +2,10 @@ package ts3bot;
 
 import com.github.theholywaffle.teamspeak3.api.event.TS3EventAdapter;
 import com.github.theholywaffle.teamspeak3.api.event.TextMessageEvent;
-import commands.PurgeAfk;
-import commands.RequestBot;
-import commands.search.bing.BingSearch;
-import commands.search.urban_dictionary.UrbanDictionarySearch;
+import commands.PurgeAfkCommand;
+import commands.RequestBotCommand;
+import commands.search.bing.BingSearchCommand;
+import commands.search.urban_dictionary.UrbanDictionarySearchCommand;
 
 import java.util.Arrays;
 
@@ -43,12 +43,12 @@ public class CommandDetector extends TS3EventAdapter {
                 case "search":
                     // TODO: can request additional pages whispered to them.
 
-                    new BingSearch(e).execute(args);
+                    new BingSearchCommand(e).execute(args);
 
 //                    String bingSearchQuery = combineArray(args);
 //
 //                    String[] bingResponse =
-//                            new BingSearch(TS3Bot.config)
+//                            new BingSearchCommand(TS3Bot.config)
 //                                    .search(bingSearchQuery)
 //                                    .toString()
 //                                    .split("!___!");
@@ -60,7 +60,7 @@ public class CommandDetector extends TS3EventAdapter {
                 case "urbandictionary":
                 case "ud":
 
-                    new UrbanDictionarySearch(e).execute(args);
+                    new UrbanDictionarySearchCommand(e).execute(args);
 
                     break;
                 case "guildlookup":
@@ -83,10 +83,10 @@ public class CommandDetector extends TS3EventAdapter {
                     break;
                 case "purgeafk":
                 case "afk":
-                    new PurgeAfk(e).execute(args);
+                    new PurgeAfkCommand(e).execute(args);
                     break;
                 case "requestbot":
-                    new RequestBot(e).execute(args);
+                    new RequestBotCommand(e).execute(args);
                     break;
                 default:
                     // TODO: 9/9/2016 state invalid command

@@ -1,11 +1,8 @@
 package commands;
 
-import Chat.Messenger;
-import com.github.theholywaffle.teamspeak3.api.TextMessageTargetMode;
 import com.github.theholywaffle.teamspeak3.api.event.TextMessageEvent;
 import com.github.theholywaffle.teamspeak3.api.wrapper.Channel;
 import com.github.theholywaffle.teamspeak3.api.wrapper.Client;
-import com.sun.xml.internal.ws.policy.privateutil.PolicyUtils;
 import ts3bot.TS3Bot;
 
 import java.util.*;
@@ -13,7 +10,7 @@ import java.util.*;
 /**
  * Created by David on 9/10/2016.
  */
-public class PurgeAfk extends Command {
+public class PurgeAfkCommand extends Command {
 
     private final int AFK_CHANNEL_ID;
     private static final String[] aliases = {
@@ -21,12 +18,12 @@ public class PurgeAfk extends Command {
             "afk"
     };
 
-    public PurgeAfk(TextMessageEvent e) {
+    public PurgeAfkCommand(TextMessageEvent e) {
         super(e);
         AFK_CHANNEL_ID = getAFKChannelID();
     }
 
-    public PurgeAfk() {
+    public PurgeAfkCommand() {
         this(null);
     }
 

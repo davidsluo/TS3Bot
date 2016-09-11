@@ -1,10 +1,9 @@
 package commands.search.bing;
 
 import com.github.theholywaffle.teamspeak3.api.event.TextMessageEvent;
-import config.Config;
+import commands.search.SearchCommand;
 import org.json.JSONArray;
 import org.json.JSONObject;
-import commands.search.Search;
 import commands.search.SearchResults;
 import ts3bot.TS3Bot;
 
@@ -20,7 +19,7 @@ import java.util.regex.Pattern;
 /**
  * Created by David on 9/10/2016.
  */
-public class BingSearch extends Search {
+public class BingSearchCommand extends SearchCommand {
 
     private static final String urlPattern = "https://api.cognitive.microsoft.com/bing/v5.0/search?q=%s&format=JSON&responseFilter=webpages";
     private static final String[] aliases = {
@@ -32,7 +31,7 @@ public class BingSearch extends Search {
             "search"
     };
 
-    public BingSearch(TextMessageEvent e) {
+    public BingSearchCommand(TextMessageEvent e) {
         super(e);
     }
 
