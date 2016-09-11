@@ -23,11 +23,24 @@ import java.util.regex.Pattern;
 public class BingSearch extends Search {
 
     private static final String urlPattern = "https://api.cognitive.microsoft.com/bing/v5.0/search?q=%s&format=JSON&responseFilter=webpages";
+    private static final String[] aliases = {
+            "bing",
+            "b",
+            "google",
+            "goog",
+            "g",
+            "search"
+    };
 
     public BingSearch(TextMessageEvent e) {
         super(e);
     }
 
+
+    @Override
+    public String[] getAliases() {
+        return aliases;
+    }
 
     @Override
     public SearchResults search(int numResults, String query) {
@@ -80,5 +93,4 @@ public class BingSearch extends Search {
     public SearchResults search(String query) {
         return search(3, query);
     }
-
 }

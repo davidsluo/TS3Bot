@@ -18,10 +18,21 @@ import java.util.Scanner;
  */
 public class UrbanDictionarySearch extends Search {
 
-    String urlPattern = "http://api.urbandictionary.com/v0/define?term=%s";
+    private static final String urlPattern = "http://api.urbandictionary.com/v0/define?term=%s";
+    private static final String[] aliases = {
+            "urbandictionary",
+            "urbandict",
+            "ud"
+    };
+
 
     public UrbanDictionarySearch(TextMessageEvent e) {
         super(e);
+    }
+
+    @Override
+    public String[] getAliases() {
+        return aliases;
     }
 
     @Override

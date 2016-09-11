@@ -2,6 +2,8 @@ package ts3bot;
 
 import com.github.theholywaffle.teamspeak3.api.event.TS3EventAdapter;
 import com.github.theholywaffle.teamspeak3.api.event.TextMessageEvent;
+import commands.PurgeAfk;
+import commands.RequestBot;
 import commands.search.SearchResults;
 import commands.search.bing.BingSearch;
 import commands.search.urban_dictionary.UrbanDictionarySearch;
@@ -24,7 +26,7 @@ public class CommandDetector extends TS3EventAdapter {
             final String[] args     = Arrays.copyOfRange(splitMsg, 1, splitMsg.length);
 
             // TODO: 9/9/2016 add logging of commands
-            switch (command) {
+            switch (command.toLowerCase()) {
                 case "help":
                     // TODO: 9/9/2016 send help message (maybe have help message auto-compiled)
                     TS3Bot.messenger.sendMessage(e, "This command has not been implemented yet.");
@@ -80,6 +82,13 @@ public class CommandDetector extends TS3EventAdapter {
                     // implement group system?
                     // use teamspeak groups?
                     TS3Bot.messenger.sendMessage(e, "This command has not been implemented yet.");
+                    break;
+                case "purgeafk":
+                case "afk":
+                    new PurgeAfk(e).execute(args);
+                    break;
+                case "requestbot":
+                    new RequestBot(e).execute(args);
                     break;
                 default:
                     // TODO: 9/9/2016 state invalid command

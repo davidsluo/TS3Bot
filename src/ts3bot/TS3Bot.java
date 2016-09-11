@@ -21,7 +21,6 @@ public class TS3Bot {
 
     public static final Config config = new Config(CONFIG_FILEPATH);
 
-    final int      AFK_CHANNEL_ID;
     final TS3Query query;
     public static TS3Api   api;
 
@@ -43,7 +42,6 @@ public class TS3Bot {
         api.selectVirtualServerById(config.getVirtServId());
         api.setNickname(config.getBotName());
 
-        AFK_CHANNEL_ID = getAFKChannelID();
 
         messenger = new Messenger(api);
 
@@ -55,40 +53,9 @@ public class TS3Bot {
 
     }
 
-    /**
-     * @return the ID of teh afk channel
-     * @throws Error
-     * @pre api is defined
-     */
-    private int getAFKChannelID() throws Error {
-        final List<Channel> channels = api.getChannelsByName(config.getAfkChannelName());
 
-        if (channels.size() > 1) {
-            throw new Error("AFK Channel name not unique!");
-        } else {
-            return channels.get(0).getId();
-        }
-    }
 
-    /**
-     * Moves all AFK clients to AFK channel.
-     *
-     * @return The clients that were moved.
-     */
-    public List<Client> purgeAFK() {
-        final List<Client> clients    = api.getClients();
-        List<Client>       afkClients = new ArrayList<>();
 
-        for (Client client : clients) {
-            if (client.getIdleTime() > config.getAfkTime() && client.getChannelId() != AFK_CHANNEL_ID) {
-                afkClients.add(client);
-                api.sendPrivateMessage(client.getId(), config.getAfkMessage());
-                api.moveClient(client.getId(), AFK_CHANNEL_ID);
-            }
-        }
-
-        return afkClients;
-    }
 
     public void shutdown() {
         query.exit();
