@@ -77,7 +77,7 @@ public class CommandDetector extends TS3EventAdapter {
                     break;
                 case "raid":
                     // TODO: 9/9/2016 move predefined clients to predefined channel
-                    // implement group system?
+                    // implement group system?g
                     // use teamspeak groups?
                     TS3Bot.messenger.sendMessage(e, "This command has not been implemented yet.");
                     break;
@@ -87,6 +87,9 @@ public class CommandDetector extends TS3EventAdapter {
                     break;
                 case "requestbot":
                     new RequestBotCommand(e).execute(args);
+                    break;
+                case "gracias":
+                    TS3Bot.messenger.sendMessage(e, "doesn't fuck around.");
                     break;
                 default:
                     // TODO: 9/9/2016 state invalid command

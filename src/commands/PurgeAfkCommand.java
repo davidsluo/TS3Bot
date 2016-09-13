@@ -37,9 +37,9 @@ public class PurgeAfkCommand extends Command {
         List<Client> afkers = purgeAFK();
 
         if (e == null) {
-            TS3Bot.messenger.sendServerMessage(
-                    "Moved " + afkers.size() + " AFK client"
-                            + (afkers.size() == 1 ? "." : "s."));
+//            TS3Bot.messenger.sendServerMessage(
+//                    "Moved " + afkers.size() + " AFK client"
+//                            + (afkers.size() == 1 ? "." : "s."));
         } else {
         TS3Bot.messenger.sendMessage(e, "Moved " + afkers.size() + " AFK client"
                 + (afkers.size() == 1 ? "." : "s."));

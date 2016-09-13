@@ -63,7 +63,8 @@ public class TS3Bot {
         List<Channel> channels = api.getChannels();
 
         for  (Channel channel : channels) {
-            if (channel.getTotalClients() > mostPopulatedChannelPopulation) {
+            if (channel.getTotalClients() > mostPopulatedChannelPopulation
+                    && !channel.getName().equals(config.getAfkChannelName())) {
                 mostPopulatedChannelId = channel.getId();
                 mostPopulatedChannelPopulation = channel.getTotalClients();
             }
